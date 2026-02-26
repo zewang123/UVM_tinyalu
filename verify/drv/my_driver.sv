@@ -52,20 +52,21 @@ endtask
 task my_driver::drive_one_pkt(my_transaction tr);
 	`uvm_info("my_driver", "begin to drive one calc pkt", UVM_LOW);
 
-	repeat(3) @(posedge vif.clk);
+	repeat(5) @(posedge vif.clk);
 	vif.A 		<= tr.A; 
    	vif.B		<= tr.B;
 	vif.op		<= tr.op;
 	vif.start 	<= 1'b1;
 	vif.result	<= 8'b0;
-	tr.done    	<= 1'b0;
+	vif.done    <= 1'b0;
 
 	repeat(1) @(posedge vif.clk);
    	vif.start <= 1'b0;
     `uvm_info("my_driver", "end drive one pkt", UVM_LOW);
 
+	repeat(5) @(posedge vif.clk);
+   `uvm_info("my_driver", $sformatf("end drive one calc pkt:A=%0h, B=%0h, op=%01h,result=%0h", tr.A, tr.B, tr.op, tr.result), UVM_LOW);
 
-   `uvm_info("my_driver", $sformatf("end drive one calc pkt:A=%0h, B=%0h, op=%0d", tr.A, tr.B, tr.op), UVM_LOW);
 
 endtask
 
