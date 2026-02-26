@@ -1,0 +1,7 @@
+#!/bin/tcsh
+
+setenv VCS_HOME /opt/synopsys/vcs
+setenv UVM_HOME `pwd`/uvm-1.1d
+setenv WORK_HOME `pwd`
+set path = ($VCS_HOME/bin ${WORK_HOME}/bin $path)
+
