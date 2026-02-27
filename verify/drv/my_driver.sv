@@ -38,7 +38,7 @@ task my_driver::main_phase(uvm_phase phase);
 
    	while(!vif.rst_n)
       	@(posedge vif.clk);
-		for(int i = 0; i < 2; i++) begin 
+		for(int i = 0; i < 4; i++) begin 
 			tr = new("tr");
 			assert(tr.randomize());
 			drive_one_pkt(tr);

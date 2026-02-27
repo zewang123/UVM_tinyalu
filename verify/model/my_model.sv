@@ -33,12 +33,10 @@ task my_model::main_phase(uvm_phase phase);
    	while(1) begin
       	port.get(tr);
 		`uvm_info("my_model", "get port transaction:", UVM_LOW);
-      	tr.my_print();
-//      	exp_tr = new("exp_tr");
-//      	exp_tr.copy(tr);
+		exp_tr = new("exp_tr");
 		exp_tr = calc_result(tr);
       	`uvm_info("my_model", "get one transaction, calc and print it:", UVM_LOW);
-      	exp_tr.my_print();
+      	exp_tr.print();
       	ap.write(exp_tr);
    end
 endtask
@@ -54,10 +52,11 @@ function my_transaction my_model::calc_result(my_transaction tr);
       	3'b001: exp_result = {8'b0, tr.A} + {8'b0, tr.B};
       	3'b010: exp_result = {8'b0, tr.A} & {8'b0, tr.B};
       	3'b011: exp_result = {8'b0, tr.A} ^ {8'b0, tr.B};
-
-      	3'b100: exp_result = tr.A * tr.B;                   
-      
-      	default: exp_result = 16'b0;
+		3'b100: exp_result = tr.A * tr.B;
+      	3'b101: exp_result = tr.A * tr.B; 
+		3'b110: exp_result = tr.A * tr.B;
+      	3'b111: exp_result = tr.A * tr.B;
+      	default: exp_result = 16'bx;
    	endcase
 
    	exp_tr.A	  = tr.A;

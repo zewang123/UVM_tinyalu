@@ -9,6 +9,7 @@ import uvm_pkg::*;
 `include "my_monitor.sv"
 `include "my_agent.sv"
 `include "my_model.sv"
+`include "my_scoreboard.sv"
 
 
 module top_tb;

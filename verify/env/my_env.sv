@@ -4,14 +4,18 @@
 `include "my_monitor.sv"
 `include "my_agent.sv"
 `include "my_model.sv"
+`include "my_scoreboard.sv"
 
 class my_env extends uvm_env;
 
 	my_agent  i_agt;
    	my_agent  o_agt;
 	my_model  mdl;
+	my_scoreboard scb;
 
-	uvm_tlm_analysis_fifo #(my_transaction) agt_mdl_fifo;
+   	uvm_tlm_analysis_fifo #(my_transaction) o_agt_scb_fifo;
+   	uvm_tlm_analysis_fifo #(my_transaction) i_agt_mdl_fifo;
+   	uvm_tlm_analysis_fifo #(my_transaction) mdl_scb_fifo;
 
 	function new(string name = "my_env", uvm_component parent);
       	super.new(name, parent);
@@ -25,7 +29,10 @@ class my_env extends uvm_env;
       	i_agt.is_active = UVM_ACTIVE;
       	o_agt.is_active = UVM_PASSIVE; 
 		mdl = my_model::type_id::create("mdl", this);
-      	agt_mdl_fifo = new("agt_mdl_fifo", this);
+		scb = my_scoreboard::type_id::create("scb", this);
+      	o_agt_scb_fifo = new("o_agt_scb_fifo", this);
+      	i_agt_mdl_fifo = new("i_agt_mdl_fifo", this);
+      	mdl_scb_fifo   = new("mdl_scb_fifo", this);
 	endfunction
 
 	extern virtual function void connect_phase(uvm_phase phase);
@@ -34,8 +41,12 @@ endclass
 
 	function void my_env::connect_phase(uvm_phase phase);
    		super.connect_phase(phase);
-   		i_agt.ap.connect(agt_mdl_fifo.analysis_export);
-   		mdl.port.connect(agt_mdl_fifo.blocking_get_export);
+   		i_agt.ap.connect(i_agt_mdl_fifo.analysis_export);
+   		mdl.port.connect(i_agt_mdl_fifo.blocking_get_export);
+   		mdl.ap.connect(mdl_scb_fifo.analysis_export);
+   		scb.exp_port.connect(mdl_scb_fifo.blocking_get_export);
+   		o_agt.ap.connect(o_agt_scb_fifo.analysis_export);
+   		scb.act_port.connect(o_agt_scb_fifo.blocking_get_export);	
 	endfunction
 
 

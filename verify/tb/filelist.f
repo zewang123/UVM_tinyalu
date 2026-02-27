@@ -18,6 +18,7 @@ $WORK_HOME/rtl/single_cycle_add_and_xor.sv
 +incdir+$WORK_HOME/verify/mon
 +incdir+$WORK_HOME/verify/agent
 +incdir+$WORK_HOME/verify/model
++incdir+$WORK_HOME/verify/scb
 $WORK_HOME/verify/tb/top_tb.sv
 $WORK_HOME/verify/if/my_if.sv
 $WORK_HOME/verify/drv/my_driver.sv
@@ -26,5 +27,5 @@ $WORK_HOME/verify/env/my_env.sv
 $WORK_HOME/verify/mon/my_monitor.sv
 $WORK_HOME/verify/agent/my_agent.sv
 $WORK_HOME/verify/model/my_model.sv
-
+$WORK_HOME/verify/scb/my_scoreboard.sv
 
