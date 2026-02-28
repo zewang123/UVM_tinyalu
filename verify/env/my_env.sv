@@ -35,10 +35,7 @@ class my_env extends uvm_env;
       	o_agt_scb_fifo = new("o_agt_scb_fifo", this);
       	i_agt_mdl_fifo = new("i_agt_mdl_fifo", this);
       	mdl_scb_fifo   = new("mdl_scb_fifo", this);
-		uvm_config_db#(uvm_object_wrapper)::set(this,
-                                              	"i_agt.sqr.main_phase",
-                                              	"default_sequence",
-                                               	my_sequence::type_id::get());
+
 	endfunction
 
 	extern virtual function void connect_phase(uvm_phase phase);

@@ -1,10 +1,10 @@
 #!/bin/sh
 
-VERB=UVM_LOW
+VERB= UVM_LOW
 SEED ?= $(shell date +%s)
-TEST ?=tinyalu
+TEST ?= base_test
 
-TB=top_tb
+TB = top_tb
 
 COVERAGE_DIR = coverage
 MERGECOV = mergecov 
@@ -25,6 +25,7 @@ run:
 	./simv \
 	+UVM_VERBOSITY=${VERB} \
 	+ntb_random_seed=${SEED} \
+	+UVM_TESTNAME=${TEST} \
 	+UVM_NO_RELNOTES
 verdi:
 	verdi \

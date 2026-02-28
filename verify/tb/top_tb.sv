@@ -12,6 +12,9 @@ import uvm_pkg::*;
 `include "my_scoreboard.sv"
 `include "my_sequencer.sv"
 `include "my_sequence.sv"
+`include "base_test.sv"
+`include "my_case0.sv"
+`include "my_case1.sv"
 
 
 module top_tb;
@@ -59,13 +62,13 @@ initial begin
 end
 
 initial begin
-	run_test("my_env");
+	run_test();
 end
 
 initial begin
-	uvm_config_db#(virtual my_if)::set(null, "uvm_test_top.i_agt.drv", "vif", input_if);
-	uvm_config_db#(virtual my_if)::set(null, "uvm_test_top.i_agt.mon", "vif", input_if);
-   	uvm_config_db#(virtual my_if)::set(null, "uvm_test_top.o_agt.mon", "vif", output_if);
+	uvm_config_db#(virtual my_if)::set(null, "uvm_test_top.env.i_agt.drv", "vif", input_if);
+	uvm_config_db#(virtual my_if)::set(null, "uvm_test_top.env.i_agt.mon", "vif", input_if);
+   	uvm_config_db#(virtual my_if)::set(null, "uvm_test_top.env.o_agt.mon", "vif", output_if);
 end
 
 
