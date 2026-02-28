@@ -10,6 +10,8 @@ import uvm_pkg::*;
 `include "my_agent.sv"
 `include "my_model.sv"
 `include "my_scoreboard.sv"
+`include "my_sequencer.sv"
+`include "my_sequence.sv"
 
 
 module top_tb;
@@ -41,7 +43,6 @@ assign output_if.B     = input_if.B;
 assign output_if.op    = input_if.op;
 assign output_if.start = input_if.start;
 assign input_if.done   = output_if.done;
-assign input_if.result = output_if.result;
 
 
 initial begin

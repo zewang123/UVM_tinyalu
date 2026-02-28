@@ -3,7 +3,7 @@
 
 `include "my_transaction.sv"
 
-class my_driver extends uvm_driver;
+class my_driver extends uvm_driver#(my_transaction);
 
 	virtual my_if vif;
 
@@ -26,8 +26,6 @@ class my_driver extends uvm_driver;
 endclass
 
 task my_driver::main_phase(uvm_phase phase);
-	my_transaction tr;
-	phase.raise_objection(this);
 	`uvm_info("my_driver", "main_phase is called", UVM_LOW);
 
   	vif.A 		<= 8'b0; 
@@ -38,15 +36,16 @@ task my_driver::main_phase(uvm_phase phase);
 
    	while(!vif.rst_n)
       	@(posedge vif.clk);
-		for(int i = 0; i < 4; i++) begin 
-			tr = new("tr");
-			assert(tr.randomize());
-			drive_one_pkt(tr);
-      	`uvm_info("my_driver", "data is drived", UVM_LOW);
+   	while(1) begin
+      	seq_item_port.try_next_item(req);
+		if(req == null)
+			@(posedge vif.clk);
+		else begin
+      		drive_one_pkt(req);
+      		seq_item_port.item_done();
 		end
-	@(posedge vif.clk);
+   	end		
 	`uvm_info("my_driver", "data is done!!!!", UVM_LOW);
-	phase.drop_objection(this);
 endtask
 
 task my_driver::drive_one_pkt(my_transaction tr);

@@ -19,6 +19,7 @@ $WORK_HOME/rtl/single_cycle_add_and_xor.sv
 +incdir+$WORK_HOME/verify/agent
 +incdir+$WORK_HOME/verify/model
 +incdir+$WORK_HOME/verify/scb
++incdir+$WORK_HOME/verify/sqr
 $WORK_HOME/verify/tb/top_tb.sv
 $WORK_HOME/verify/if/my_if.sv
 $WORK_HOME/verify/drv/my_driver.sv
@@ -28,4 +29,5 @@ $WORK_HOME/verify/mon/my_monitor.sv
 $WORK_HOME/verify/agent/my_agent.sv
 $WORK_HOME/verify/model/my_model.sv
 $WORK_HOME/verify/scb/my_scoreboard.sv
-
+$WORK_HOME/verify/sqr/my_sequencer.sv
++incdir+$WORK_HOME/verify/seq/my_sequence.sv
