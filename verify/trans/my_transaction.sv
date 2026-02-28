@@ -11,9 +11,9 @@ class my_transaction extends uvm_sequence_item;
    	constraint op_cons{
 //      op[2] inside {0,1};
 //	  	op[1:0] inside {1,2,3};
-		op inside {7};
-      	A inside {[1:128]};
-      	B inside {[128:255]};
+//		op inside {7};
+//      	A inside {[1:128]};
+//      	B inside {[128:255]};
 	  	}
 
    `uvm_object_utils_begin(my_transaction)

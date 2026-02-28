@@ -56,7 +56,7 @@ function my_transaction my_model::calc_result(my_transaction tr);
       	3'b101: exp_result = tr.A * tr.B; 
 		3'b110: exp_result = tr.A * tr.B;
       	3'b111: exp_result = tr.A * tr.B;
-      	default: exp_result = 16'bx;
+      	default: exp_result = 16'b0;
    	endcase
 
    	exp_tr.A	  = tr.A;

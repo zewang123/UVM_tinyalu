@@ -9,6 +9,12 @@
 `include "my_sequencer.sv"
 `include "my_sequence.sv"
 `include "base_test.sv"
+
 `include "my_case0.sv"	
 `include "my_case1.sv"
+`include "alu_add_rand_test.sv"
+`include "alu_and_rand_test.sv"
+`include "alu_or_rand_test.sv"
+`include "alu_mul_rand_test.sv"
+`include "alu_full_rand_test.sv"
 
