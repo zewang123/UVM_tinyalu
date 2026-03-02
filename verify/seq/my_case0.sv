@@ -10,8 +10,8 @@ class case0_sequence extends uvm_sequence #(my_transaction);
    virtual task body();
       if(starting_phase != null) 
          starting_phase.raise_objection(this);
-      repeat (6) begin
-         `uvm_do(m_trans)
+      repeat (10) begin
+         `uvm_do_with(m_trans, {m_trans.op == 3'b000;})
       end
       #100;
       if(starting_phase != null) 

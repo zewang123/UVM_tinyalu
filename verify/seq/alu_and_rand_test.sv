@@ -2,15 +2,23 @@
 `define ALU_AND__SV
 class and_sequence extends uvm_sequence #(my_transaction);
    my_transaction m_trans;
+   int unsigned seq_repeat_cnt = 100;
 
    function  new(string name= "and_sequence");
       super.new(name);
    endfunction 
    
    virtual task body();
+	    if($value$plusargs("seq_repeat_cnt=%0d", seq_repeat_cnt)) 
+		begin
+            `uvm_info("my_seqence", $sformatf("from config_db the repeat: %0d", seq_repeat_cnt), UVM_LOW);
+        end else begin
+            `uvm_info("py_seqence", $sformatf("no repeat，seq_repeat_cnt: %0d", seq_repeat_cnt), UVM_LOW);
+        end
+		
       if(starting_phase != null) 
          starting_phase.raise_objection(this);
-      repeat (10) begin
+      repeat (seq_repeat_cnt) begin
          `uvm_do_with(m_trans, {m_trans.op == 3'b010;})
 		 `uvm_info("alu_and_rand_test", "op = 3'b010 , and_rand:", UVM_LOW);
       end
