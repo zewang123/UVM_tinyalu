@@ -9,7 +9,7 @@ class my_transaction extends uvm_sequence_item;
 	logic		[15:0] 	result;
 
    	constraint op_cons{
-//      op[2] inside {0,1};
+//      op[2] inside {1,2,3,4,5,6,7};
 //	  	op[1:0] inside {1,2,3};
 //		op inside {7};
 //      	A inside {[1:128]};

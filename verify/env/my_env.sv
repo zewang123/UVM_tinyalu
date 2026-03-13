@@ -6,14 +6,16 @@
 `include "my_model.sv"
 `include "my_scoreboard.sv"
 `include "my_sequence.sv"
+`include "my_coverage.sv"
 
 
 class my_env extends uvm_env;
 
-	my_agent  i_agt;
-   	my_agent  o_agt;
-	my_model  mdl;
-	my_scoreboard scb;
+	my_agent  		i_agt;
+   	my_agent  		o_agt;
+	my_model  		mdl;
+	my_scoreboard 	scb;
+	my_coverage     cov;
 
    	uvm_tlm_analysis_fifo #(my_transaction) o_agt_scb_fifo;
    	uvm_tlm_analysis_fifo #(my_transaction) i_agt_mdl_fifo;
@@ -35,7 +37,7 @@ class my_env extends uvm_env;
       	o_agt_scb_fifo = new("o_agt_scb_fifo", this);
       	i_agt_mdl_fifo = new("i_agt_mdl_fifo", this);
       	mdl_scb_fifo   = new("mdl_scb_fifo", this);
-
+		cov = my_coverage::type_id::create("cov", this);  
 	endfunction
 
 	extern virtual function void connect_phase(uvm_phase phase);
@@ -50,7 +52,8 @@ endclass
    		mdl.ap.connect(mdl_scb_fifo.analysis_export);
    		scb.exp_port.connect(mdl_scb_fifo.blocking_get_export);
    		o_agt.ap.connect(o_agt_scb_fifo.analysis_export);
-   		scb.act_port.connect(o_agt_scb_fifo.blocking_get_export);	
+   		scb.act_port.connect(o_agt_scb_fifo.blocking_get_export);
+		scb.pass_trans_ap.connect(cov.analysis_export);
 	endfunction
 
 `endif

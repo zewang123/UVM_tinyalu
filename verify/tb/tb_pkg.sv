@@ -9,6 +9,7 @@
 `include "my_sequencer.sv"
 `include "my_sequence.sv"
 `include "base_test.sv"
+`include "my_coverage.sv"
 
 `include "my_case0.sv"	
 `include "my_case1.sv"

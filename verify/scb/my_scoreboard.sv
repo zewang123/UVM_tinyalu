@@ -4,6 +4,9 @@ class my_scoreboard extends uvm_scoreboard;
    my_transaction  expect_queue[$];
    uvm_blocking_get_port #(my_transaction)  exp_port;
    uvm_blocking_get_port #(my_transaction)  act_port;
+
+   uvm_analysis_port #(my_transaction)  pass_trans_ap;
+
    `uvm_component_utils(my_scoreboard)
 
    extern function new(string name, uvm_component parent = null);
@@ -19,6 +22,8 @@ function void my_scoreboard::build_phase(uvm_phase phase);
    super.build_phase(phase);
    exp_port = new("exp_port", this);
    act_port = new("act_port", this);
+
+   pass_trans_ap = new("pass_trans_ap", this);
 endfunction 
 
 task my_scoreboard::main_phase(uvm_phase phase);
@@ -41,6 +46,7 @@ task my_scoreboard::main_phase(uvm_phase phase);
     	`uvm_info("my_scoreboard", "Compare SUCCESSFULLY!!!!", UVM_LOW);
 		$display("the pkt is");
 		`uvm_info("my_scoreboard", $sformatf("get_actual_result=%0h,get_expect_result=%0h",get_actual.result,get_expect.result), UVM_LOW);
+		pass_trans_ap.write(get_actual);
     end
     else begin
     	`uvm_error("my_scoreboard", "Compare FAILED");
